@@ -1,29 +1,22 @@
 {% extends 'base.html.twig' %}
-
 {% block content %}
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Registration Page</title>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+         <link rel="stylesheet" href="{{ asset('./app.css') }}">
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-   <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}">
-</head>
-{% block title %}Register{% endblock %}
+    </head>
+    {% block body %}
 
-{% block body %}
-<body class="hold-transition register-page">
+    <body class="hold-transition register-page">
     <div class="register-box">
-  <div class="register-logo">
-    <a href=#><b>Admin</b>LTE</a>
-  </div>
-    <div class="card">
+     <div class="register-logo">
+     <a href=#><b>Admin</b>LTE</a>
+     </div>
+     <div class="card">
       <div class="card-body register-card-body">
        <p class="login-box-msg">Register a new membership</p>
-
-      <form  action="/register" method="post">
+        <form  action="/register" method="post">
 
 
         <div class="input-group mb-3">
@@ -76,27 +69,46 @@
           <!-- /.col -->
         </div>
     </form>
-      <div class="social-auth-links text-center">
-        <p>- OR -</p>
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i>
-          Sign up using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i>
-          Sign up using Google+
-        </a>
-      </div>
-      <a href="login.html" class="text-center">I already have a membership</a>
     </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
-</div>
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../dist/js/adminlte.min.js"></script>
-    
-</body>
+    </div>
+        </div>
 
+
+    <div class="container">
+    
+    <h1>User index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.password }}</td>
+                <td>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</html>
 {% endblock %}
+
 {% endblock %}
